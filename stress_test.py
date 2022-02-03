@@ -10,12 +10,18 @@ import os
 STR_MIN = 10
 
 def load_time():
-    try:
-        set_time = os.environ['STRESS_MINS']
-    except KeyError: 
-        set_time=10
-        print('STRESS_MINS: Environment variable does not exist')
-        print('SET variable  STRESS_MINS=10')
+    global STR_MIN
+    if len(sys.argv) > 1:
+        set_time=sys.argv[1] 
+        #STR_MIN = set_time
+    else:
+        try:
+            set_time = os.environ['STRESS_MINS']
+        except KeyError: 
+            print('STRESS_MINS: Environment variable does not exist')
+            set_time = STR_MIN       
+    STR_MIN = set_time 
+    print('SET Environment variable  as STRESS_MINS = ', STR_MIN)
 
 def f(x):
     print('STRESS processor : ', x)
