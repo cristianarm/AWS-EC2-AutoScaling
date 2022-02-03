@@ -1,30 +1,30 @@
 """
 Produces load on all available CPU cores.
-Requires system environment var STRESS_MINS to be set.
 """
 from multiprocessing import Pool
 from multiprocessing import cpu_count
 import time
 import os
+import sys
 
 STR_MIN = 10
 
 def load_time():
     global STR_MIN
+    set_time = STR_MIN 
     if len(sys.argv) > 1:
         set_time=sys.argv[1] 
-        #STR_MIN = set_time
     else:
         try:
             set_time = os.environ['STRESS_MINS']
         except KeyError: 
             print('STRESS_MINS: Environment variable does not exist')
-            set_time = STR_MIN       
     STR_MIN = set_time 
-    print('SET Environment variable  as STRESS_MINS = ', STR_MIN)
+    print('SET stress time in :', STR_MIN, ' min')
+        
 
 def f(x):
-    print('STRESS processor : ', x)
+    print('Stressing processor number : ', x)
     timeout = time.time() + 60*float(STR_MIN)  # X minutes from now
     while True:
         if time.time() > timeout:
