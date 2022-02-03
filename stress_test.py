@@ -38,5 +38,5 @@ if __name__ == '__main__':
     pool = Pool(processes)
     try:
         pool.map(f, range(processes))
-    except KeyboardInterrupt: 
+    except : 
         print("KeyboardInterrupt")
